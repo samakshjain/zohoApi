@@ -1,4 +1,5 @@
 /venv
 *.cfg
 .idea
+*.pyc
 document.pdf
