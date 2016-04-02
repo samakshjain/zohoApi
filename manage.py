@@ -19,10 +19,10 @@ def upload_pdf():
 
     auth_token = app.config.get("AUTH_TOKEN")
     # Get upload Url from body
-    upload_url = request.json["pdf_url"]
+    upload_url = request.args.get('pdf_url')  
 
-    if not auth_token and "auth_token" in request.json:
-        auth_token = request.json["auth_token"]
+    if not auth_token and "auth_token" in request.args:
+        auth_token = request.args.get('auth_token')
 
     if not auth_token:
         response = jsonify({"error": "missing auth token"})
