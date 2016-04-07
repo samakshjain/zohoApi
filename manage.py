@@ -14,9 +14,9 @@ if path:
     app.config.from_envvar('ZC_CONFIG_PATH')
 
 
-@app.route("/upload", methods=["POST"])
+@app.route("/upload", methods=["GET"])
 def upload_pdf():
-
+    print request.args
     auth_token = app.config.get("AUTH_TOKEN")
     # Get upload Url from body
     upload_url = request.args.get('pdf_url')  
@@ -26,6 +26,10 @@ def upload_pdf():
 
     if not auth_token:
         response = jsonify({"error": "missing auth token"})
+        response.status_code = 400
+        return response
+    if not upload_url:
+        response = jsonify({"error": "missing 'pdf_url'"})
         response.status_code = 400
         return response
 
